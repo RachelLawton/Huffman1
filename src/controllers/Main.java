@@ -15,10 +15,10 @@ public class Main {
 			if(huff.containsKey(letter)){
 				// increment it by one
 				Integer frequency = huff.get(letter);
-				frequency = frequency + 1;
+				huff.put(letter, ++frequency);
 			}
 			else{
-				System.out.println("The letter :");
+				//System.out.println("The letter :"+ huff);
 				// add it and make it one
 				//Integer val = new Integer(1);
 				//huff.put(letter,  val);
