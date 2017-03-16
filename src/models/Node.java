@@ -4,18 +4,18 @@ import java.util.Comparator;
 
 public class Node implements Comparable {
 
-	public Character c;
+	public String c;
 	public Integer freq;
 	public Node left;
 	public Node right;
 
 	public Node(){
 		char empty = '\0'; // https://coderanch.com/t/392740/java/Set-char-empty
-		this.c = new Character(empty);
+		this.c = new String("");
 		this.freq = new Integer(0);
 	}
 
-	public Node(Character c, Integer freq){
+	public Node(String c, Integer freq){
 		this.c = c;
 		this.freq = freq;
 	}
