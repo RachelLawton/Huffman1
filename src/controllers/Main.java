@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -36,6 +37,51 @@ public class Main {
 	//public Node huffTree(HashMap<Character, Integer> huff){
 
 	//}
+	 =======
+	public void huffTree(HashMap<Character, Integer> huff){
+
+			Node newNode = new Node(c,freq,left,right);
+
+			if(parent ==  null){
+				parent = newNode;
+			}else{
+				Node activeNode = parent;
+
+				while(true){
+					parent = activeNode;
+
+					if(c.compareTo(c) < activeNode.c){
+
+						activeNode = activeNode.left;
+
+						if(activeNode ==  null){
+							parent.left = newNode;
+							return;
+						}
+
+					}else{
+						activeNode = activeNode.right;
+
+						if(activeNode == null){
+							parent.right = newNode;
+							return;
+						}
+					}
+				}
+			}
+		}
+		
+
+
+
+	public class HuffCompartor implements Comparator<Node>{
+
+		@Override
+		public int compare(Node o1, Node o2) {
+
+			return o1.freq- o2.freq;
+>>>>>>> Stashed changes 
+	 
 	 */
 	
 	public static void freqCounter(String word, HashMap<Character, Integer> huff){
