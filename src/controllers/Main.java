@@ -21,69 +21,41 @@ public class Main {
 	 * 5. Encode a file based on Huffman codes
 	 */
 	
-	/*
-	PriorityQueue<TreeNode> pQueue = new PriorityQueue<TreeNode>();
-	Map<Character, Integer> huff = new HashMap<Character,Integer>();
-	PriorityQueue <Node> priQueue = new PriorityQueue<Node>(new HuffCompartor());
+/*
 	
-	public PriorityQueue<Node> pQueue(HashMap<Character, Integer> huff){
-		for(Entry<Character, Integer> entry : huff.entrySet()){
-			priQueue.add(new Node(entry.getKey(), entry.getValue(), null, null));
-		}
-		//System.out.println("your queue is" + priQueue.toString());
-		return priQueue;
-	}
-
-	//public Node huffTree(HashMap<Character, Integer> huff){
-
-	//}
-	 =======
 	public void huffTree(HashMap<Character, Integer> huff){
 
-			Node newNode = new Node(c,freq,left,right);
+		Node newNode = new Node(c,freq,left,right);
 
-			if(parent ==  null){
-				parent = newNode;
-			}else{
-				Node activeNode = parent;
+		if(parent ==  null){
+			parent = newNode;
+		}else{
+			Node activeNode = parent;
 
-				while(true){
-					parent = activeNode;
+			while(true){
+				parent = activeNode;
 
-					if(c.compareTo(c) < activeNode.c){
+				if(c.compareTo(c) < activeNode.c){
 
-						activeNode = activeNode.left;
+					activeNode = activeNode.left;
 
-						if(activeNode ==  null){
-							parent.left = newNode;
-							return;
-						}
+					if(activeNode ==  null){
+						parent.left = newNode;
+						return;
+					}
 
-					}else{
-						activeNode = activeNode.right;
+				}else{
+					activeNode = activeNode.right;
 
-						if(activeNode == null){
-							parent.right = newNode;
-							return;
-						}
+					if(activeNode == null){
+						parent.right = newNode;
+						return;
 					}
 				}
 			}
 		}
-		
-
-
-
-	public class HuffCompartor implements Comparator<Node>{
-
-		@Override
-		public int compare(Node o1, Node o2) {
-
-			return o1.freq- o2.freq;
->>>>>>> Stashed changes 
-	 
-	 */
-	
+	}
+*/
 	public static void freqCounter(String word, HashMap<Character, Integer> huff){
 		for(int i = 0; i < word.length(); i++){
 			char letter = word.charAt(i);
@@ -113,7 +85,7 @@ public class Main {
 	public static void main(String args[]){
 		// For testing I want to use this string test. 
 		// But for the assignment I need to read in data from a file at this point..
-		String test = "mississippi river";
+		String test = "mississippi";
 		
 		// Declare a HashMap to hold my characters and the frequency of each character in the test string
 		HashMap<Character, Integer> freqHash = new HashMap<Character,Integer>();
