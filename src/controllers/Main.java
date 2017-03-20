@@ -21,12 +21,12 @@ public class Main {
 	 * 4. Perform a traversal of tree to determine all code words
 	 * 5. Encode a file based on Huffman codes
 	 */
-	
+
 
 	public void huffTree(PriorityQueue <Node> priQueue){
-		
+
 		HuffTree ht = new HuffTree();
-		
+
 		if(priQueue.size() > 2){
 			// pull out two nodes
 			Node n1 = priQueue.remove();
@@ -39,8 +39,9 @@ public class Main {
 			Node n1 = priQueue.remove();
 			Node parent = ht.add(n1);
 			priQueue.add(parent);
+
 		}
-		
+
 	}
 
 	public static void freqCounter(String word, HashMap<String, Integer> huff){
@@ -59,7 +60,7 @@ public class Main {
 			}
 		}
 	}
-	
+
 	public static void populateQueue(HashMap<String,Integer> freqHash, PriorityQueue<Node> priQueue){
 		// Loop over the freqHash, and for each element put it into the priQueue
 		for(Entry<String, Integer> entry : freqHash.entrySet()){
@@ -69,32 +70,58 @@ public class Main {
 		}
 	}
 
+	public static void charToBinary(PriorityQueue<Node>priQueue){
+		HashMap<Character, String> cToB= new HashMap<>();
+		Node parent = priQueue.remove();
+		generateBinary(parent, cToB, "");
+		
+		for (Character c : cToB.keySet()) {
+			System.out.println(c + " => " + cToB.get(c));
+		}
+	}
+
+	public static void generateBinary(Node Node, HashMap<Character, String> cToB, String s){
+		 if (Node.left == null && Node.right == null) {
+			 //char c = Node.getCurrentNode().charAt(0);
+			 cToB.put(Node.c.charAt(0), s);
+	            return;
+	        }    
+		 generateBinary(Node.left, cToB, s + '0');
+		 generateBinary(Node.right, cToB, s + '1' );
+            }
+	
+		
+	
+
+
 	public static void main(String args[]){
 		// For testing I want to use this string test. 
 		// But for the assignment I need to read in data from a file at this point..
 		String test = "mississippi";
-		
+
 		// Declare a HashMap to hold my characters and the frequency of each character in the test string
 		HashMap<String, Integer> freqHash = new HashMap<String,Integer>();
-		
+
 		// Calculate the frequency of each chracter in the test string
 		freqCounter(test, freqHash);
-		
+
 		// Declare a priority list/queue
 		NodeComparator nodeCompare = new NodeComparator(); // I can use this nodeCompare to compare Node objects
 		PriorityQueue <Node> priQueue = new PriorityQueue<Node>(nodeCompare);
 
 		// Add each character/frequency pair to the PriorityQueue
 		populateQueue(freqHash, priQueue);
-		
+
 		// Create our HuffTree
-		
+		HashMap<Character, String> cToB= new HashMap<>();
+		System.out.println(cToB);
+
 
 		// Print out the results
 		System.out.println(freqHash.toString());
 		//System.out.println(priQueue.toString());
 		while (priQueue.size() > 0) {
-		    System.out.print(priQueue.remove() + " ");
+			System.out.print(priQueue.remove() + " ");
 		}
 	}
 }

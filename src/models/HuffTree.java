@@ -10,7 +10,7 @@ public class HuffTree {
 	 * We take the smallest two elements out of the queue and put htem in the tree
 	 */
 	public Node root;
-	public Node currentNode;
+	public static Node currentNode;
 	
 	public HuffTree(){
 		root = null;
@@ -58,6 +58,10 @@ public class HuffTree {
 		return root;
 	}
 	
+
+	
+	
+	
 	public String toString(){
 		String str = "";
 		
@@ -66,6 +70,8 @@ public class HuffTree {
 		}
 		
 		return str;
+		
+		
 	}
 	
 	
