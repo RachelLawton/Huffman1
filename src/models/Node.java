@@ -38,7 +38,26 @@ public class Node implements Comparable {
 	}
 
 	public String toString(){
-		return this.c.toString() + ":" + this.freq.toString();
+		String str = "";
+		str += "Name:" + this.c.toString() + 
+			   " Frequency:" + this.freq.toString();
+		if(left == null){
+			str += " left: null";
+		}
+		else
+		{
+			str += " left: " + left.toString();
+		}
+		
+		if(right == null){
+			str += " right: null";
+		}
+		else
+		{
+			str += " right: " + right.toString();
+		}
+		
+		return str;
 	}
 }
 

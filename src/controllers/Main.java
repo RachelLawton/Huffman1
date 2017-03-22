@@ -56,7 +56,7 @@ public class Main {
 				Node n2 = priQueue.remove();
 				
 				Node parent = ht.add(n1, n2);
-				System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
+				//System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
 
 				priQueue.add(parent);
 			}
