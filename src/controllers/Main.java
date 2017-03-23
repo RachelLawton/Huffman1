@@ -56,7 +56,11 @@ public class Main {
 				Node n2 = priQueue.remove();
 				
 				Node parent = ht.add(n1, n2);
+<<<<<<< HEAD
 				System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
+=======
+				//System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
+>>>>>>> origin/master
 
 				priQueue.add(parent);
 			}
@@ -82,7 +86,10 @@ public class Main {
 		freqCounter(test_string, freqHash);
 		System.out.println(freqHash);
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		// Declare a priority list/queue
 		NodeComparator nodeCompare = new NodeComparator(); // I can use this nodeCompare to compare Node objects
 		PriorityQueue <Node> priQueue = new PriorityQueue<Node>(nodeCompare);
