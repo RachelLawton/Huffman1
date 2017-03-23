@@ -1,32 +1,44 @@
+
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
+
+/*
+ * I need to keep track of root
+ * I need to keep track of current node
+ * I take the smallest two elements out of the queue and put them in the tree
+ */
 public class HuffTree {
-	
-	/*
-	 * We need to keep track of root
-	 * we need to keep track of current node
-	 * We take the smallest two elements out of the queue and put htem in the tree
-	 */
+
 	public Node root;
-	public static Node currentNode;
-	
+	public Node currentNode;
+
+	/**
+	 * HuffTree Constructor
+	 */
 	public HuffTree(){
 		root = null;
 		currentNode = null;
 	}
-	
-	
-	
+
+	/**
+	 * add a pair of nodes to the HuffTree
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
 	public Node add(Node n1, Node n2){
-		if(this.root == null){
-			root = n1;
-			currentNode = root;
+		if(isEmpty()){
+			// Only ever do this when the HuffTree is empty
+			currentNode = new Node();
 			currentNode.c = n1.c + n2.c;
 			currentNode.freq = n1.freq + n2.freq;
 			currentNode.left = n1;
 			currentNode.right = n2;
+			root = n1;
 		}
 		else{
 			currentNode = new Node();
@@ -39,45 +51,93 @@ public class HuffTree {
 				root = currentNode;
 			}
 		}
-		
 		return currentNode;
 	}
-	
+
+	/**
+	 * Add a single node to the tree
+	 * @param n1
+	 * @return
+	 */
 	public Node add(Node n1){
-		currentNode = new Node();
-		currentNode.c = n1.c + root.c;
-		currentNode.freq = n1.freq + root.freq;
-		currentNode.left = n1;
-		currentNode.right = root;
-		
-		root = currentNode;
-		return root;
+		if(isEmpty()){
+			// Only ever do this when the HuffTree is empty
+			root = n1;
+			currentNode = root;
+		}
+		else{
+			if(n1 != root){
+				currentNode = new Node();
+				currentNode.c = n1.c + root.c;
+				currentNode.freq = n1.freq + root.freq;
+				currentNode.left = n1;
+				currentNode.right = root;
+
+				root = currentNode;
+			}
+		}
+		return currentNode;
 	}
-	
+
+	/**
+	 * return the top of the tree
+	 * @return
+	 */
 	public Node getRoot(){
 		return root;
 	}
-	
 
-	
-	
-	
+	/**
+	 * convert the HuffTree to a String
+	 */
 	public String toString(){
 		String str = "";
-		
+
 		if(root.left == null && root.right == null){
 			str = root.c + "" + root.freq;
 		}
-		
+
 		return str;
-		
-		
+	}
+
+
+	/**
+	 * Check to see if the HuffTree is empty
+	 * @return
+	 */
+	public boolean isEmpty(){
+		return root == null;
 	}
 	
 	
-	// Check to see if the HuffTree is empty
-	public boolean isEmpty(){
-		return root == null;
+	public HashMap<String, String> traverseTree(Node theRoot){
+		HashMap<String, String> mapping = new HashMap<String, String>();
+		ArrayList<Node> visitedList = new ArrayList<Node>();
+		Node cNode = null;
+		Node pNode = null;
+		
+	
+		if(isEmpty()){
+			return mapping;
+		}
+		else{
+			cNode = theRoot;
+			
+			while(!visitedList.contains(theRoot)){
+				if(cNode.left != null && !visitedList.contains(cNode.left)){
+					pNode = cNode;
+					cNode = cNode.left;
+					cNode.binaryName = cNode.calculateBinaryName(cNode, pNode, theRoot);
+				}
+				if(cNode.right != null && !visitedList.contains(cNode.right)){
+					pNode = cNode;
+					cNode = cNode.right;
+					cNode.binaryName = cNode.calculateBinaryName(cNode, pNode, theRoot);
+				}
+			}
+		}
+		
+		return mapping;
 	}
 
 }
