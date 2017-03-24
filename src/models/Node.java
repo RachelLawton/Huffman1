@@ -9,6 +9,7 @@ public class Node implements Comparable {
 	public Integer freq;
 	public Node left;
 	public Node right;
+	public Node parent;
 
 	public Node(){
 		char empty = '\0'; // https://coderanch.com/t/392740/java/Set-char-empty
@@ -19,6 +20,7 @@ public class Node implements Comparable {
 
 	public Node(String c, Integer freq){
 		this.c = c;
+		this.binaryName = "";
 		this.freq = freq;
 	}
 	
@@ -39,18 +41,18 @@ public class Node implements Comparable {
 		return 0;
 	}
 
-	public String calculateBinaryName(Node cNode, Node pNode, Node root){
-		if(cNode == root){
-			if(cNode == root.left || cNode == pNode.left){
-				return "0";
+	public String calculateBinaryName(Node cNode, Node root){
+		if(cNode != root){
+			if(cNode == root.left || cNode == cNode.parent.left){
+				return cNode.parent.calculateBinaryName(cNode.parent, root) + "0";
 			}
-			if(cNode == root.right || cNode == pNode.right){
-				return "1";
+			if(cNode == root.right || cNode == cNode.parent.right){
+				return cNode.parent.calculateBinaryName(cNode.parent, root) + "1";
 			}
 			return "";
 		}
 		else{
-			return "0";
+			return "";
 		}
 	}
 	
@@ -59,7 +61,7 @@ public class Node implements Comparable {
 		str += "Name:" + this.c.toString() + 
 			   " Frequency:" + this.freq.toString();
 		if(left == null){
-			str += " left: null";
+			//str += " left: null";
 		}
 		else
 		{
@@ -67,12 +69,14 @@ public class Node implements Comparable {
 		}
 		
 		if(right == null){
-			str += " right: null";
+			//str += " right: null";
 		}
 		else
 		{
 			str += " right: " + right.toString();
 		}
+		
+		str += " binary: " + binaryName;
 		
 		return str;
 	}

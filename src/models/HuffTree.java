@@ -1,4 +1,3 @@
-
 package models;
 
 import java.util.ArrayList;
@@ -34,6 +33,9 @@ public class HuffTree {
 		if(isEmpty()){
 			// Only ever do this when the HuffTree is empty
 			currentNode = new Node();
+			currentNode.parent = null;
+			n1.parent = currentNode;
+			n2.parent = currentNode;
 			currentNode.c = n1.c + n2.c;
 			currentNode.freq = n1.freq + n2.freq;
 			currentNode.left = n1;
@@ -42,6 +44,9 @@ public class HuffTree {
 		}
 		else{
 			currentNode = new Node();
+			currentNode.parent = null;
+			n1.parent = currentNode;
+			n2.parent = currentNode;
 			currentNode.c = n1.c + n2.c;
 			currentNode.freq = n1.freq + n2.freq;
 			currentNode.left = n1;
@@ -63,11 +68,13 @@ public class HuffTree {
 		if(isEmpty()){
 			// Only ever do this when the HuffTree is empty
 			root = n1;
+			root.parent = null;
 			currentNode = root;
 		}
 		else{
 			if(n1 != root){
 				currentNode = new Node();
+				currentNode.parent = null;
 				currentNode.c = n1.c + root.c;
 				currentNode.freq = n1.freq + root.freq;
 				currentNode.left = n1;
@@ -91,13 +98,7 @@ public class HuffTree {
 	 * convert the HuffTree to a String
 	 */
 	public String toString(){
-		String str = "";
-
-		if(root.left == null && root.right == null){
-			str = root.c + "" + root.freq;
-		}
-
-		return str;
+		return this.root.toString();
 	}
 
 
@@ -114,9 +115,7 @@ public class HuffTree {
 		HashMap<String, String> mapping = new HashMap<String, String>();
 		ArrayList<Node> visitedList = new ArrayList<Node>();
 		Node cNode = null;
-		Node pNode = null;
 		
-	
 		if(isEmpty()){
 			return mapping;
 		}
@@ -124,19 +123,30 @@ public class HuffTree {
 			cNode = theRoot;
 			
 			while(!visitedList.contains(theRoot)){
-				if(cNode.left != null && !visitedList.contains(cNode.left)){
-					pNode = cNode;
-					cNode = cNode.left;
-					cNode.binaryName = cNode.calculateBinaryName(cNode, pNode, theRoot);
+				if(visitedList.contains(cNode.left) && visitedList.contains(cNode.right)){
+					// if both the left and right child nodes are in the list, we can add the current node to the visited list
+					visitedList.add(cNode);
+					cNode = cNode.parent;
 				}
-				if(cNode.right != null && !visitedList.contains(cNode.right)){
-					pNode = cNode;
-					cNode = cNode.right;
-					cNode.binaryName = cNode.calculateBinaryName(cNode, pNode, theRoot);
+				if(cNode != null && cNode.left == null && cNode.right == null){
+					// We are at the bottom. The binaryName should contain the huffcode for this letter
+					mapping.put(cNode.c, cNode.binaryName);
+					// go up one node in the tree cause we are at the bottom
+					visitedList.add(cNode);
+					cNode = cNode.parent;
+				}
+				else {
+					if(cNode != null && cNode.left != null && !visitedList.contains(cNode.left)){
+						cNode = cNode.left;
+						cNode.binaryName = cNode.calculateBinaryName(cNode, theRoot);						
+					}
+					if(cNode != null && cNode.right != null && !visitedList.contains(cNode.right)){
+						cNode = cNode.right;
+						cNode.binaryName = cNode.calculateBinaryName(cNode, theRoot);
+					}
 				}
 			}
 		}
-		
 		return mapping;
 	}
 

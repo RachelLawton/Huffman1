@@ -49,19 +49,18 @@ public class Main {
 	}
 
 	public static void huffTree(PriorityQueue <Node> priQueue, HuffTree ht){
+		// while the pririty queue is not empty keep taking the nodes out and put them into the huff tree
 		while(!priQueue.isEmpty()){
 			if(priQueue.size() >= 2){
 				// pull out two nodes
 				Node n1 = priQueue.remove();
 				Node n2 = priQueue.remove();
 				
+				// add them to the hufftree
 				Node parent = ht.add(n1, n2);
-<<<<<<< HEAD
-				System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
-=======
 				//System.out.println(n1.toString() + " " + n2.toString() + " -> " + parent.toString());
->>>>>>> origin/master
 
+				// put the parent of these two nodes back into the priority queue
 				priQueue.add(parent);
 			}
 			else{
@@ -69,8 +68,9 @@ public class Main {
 				Node n1 = priQueue.remove();
 				//System.out.println(n1.toString());
 				
+				// when there is only one node left it must be the one with the highest priority
 				Node parent = ht.add(n1);
-				System.out.println("final -> " + parent.toString());
+				//System.out.println("final -> " + parent.toString());
 			}}
 	}
 
@@ -78,18 +78,15 @@ public class Main {
 		// For testing I want to use this string test. 
 		// But for the assignment I need to read in data from a file at this point..
 		String test_string = "mississippi";
+		System.out.println("Test String: " + test_string);
 
 		// Declare a HashMap to hold my characters and the frequency of each character in the test string
 		HashMap<String, Integer> freqHash = new HashMap<String,Integer>();
 
-		// Calculate the frequency of each chracter in the test string
+		// Calculate the frequency of each character in the test string
 		freqCounter(test_string, freqHash);
 		System.out.println(freqHash);
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/master
 		// Declare a priority list/queue
 		NodeComparator nodeCompare = new NodeComparator(); // I can use this nodeCompare to compare Node objects
 		PriorityQueue <Node> priQueue = new PriorityQueue<Node>(nodeCompare);
@@ -104,5 +101,11 @@ public class Main {
 		// Populate my HuffTree
 		huffTree(priQueue, ht);
 		System.out.println(ht);
+		
+		// Calculate the huffman codes for each letter
+		HashMap<String, String> huff_codes =  ht.traverseTree(ht.root);
+		System.out.println(huff_codes);
+		
 	}
+	
 }
