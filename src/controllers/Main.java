@@ -105,7 +105,12 @@ public class Main {
 		// Calculate the huffman codes for each letter
 		HashMap<String, String> huff_codes =  ht.traverseTree(ht.root);
 		System.out.println(huff_codes);
+<<<<<<< HEAD
 		
 	}
 	
 }
+=======
+	}
+}
+>>>>>>> origin/master
